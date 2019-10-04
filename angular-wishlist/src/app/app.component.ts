@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-wishlist';
+  //agregar(titulo: HTMLInputElement){
+  //  console.log(titulo.value);
+//}
 }
+
+
