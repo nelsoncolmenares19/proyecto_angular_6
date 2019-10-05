@@ -21,4 +21,11 @@ export class ListaDestinosComponent implements OnInit {
     return false // al presionar enviar en el formulario la respuesta de javascript es recargar la pagina 
     // por lo tanto la respuesta debe ser false para q no se recargue
   }
+
+  elegido(d:DestinoViaje){
+    this.destinos.forEach(function(x){x.setSelected(false)});
+    d.setSelected(true);
+    // en teoria con esto lo q se selecciones en el html lista-destinos esta funcion
+    // el array y desseleccionara todo excepto lo q habiamos elegido
+  }
 }
