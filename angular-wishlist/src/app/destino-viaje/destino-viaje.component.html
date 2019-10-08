@@ -7,8 +7,8 @@
         <h3>{{destino.nombre}}</h3>
         <p>Servicios</p>
         <ul>
-            <li *ngFor= "let s of destino.servicios">
-                <span [ngSwitch]= 's'>
+            <li *ngFor="let s of destino.servicios">
+                <span [ngSwitch]='s'>
                     <i *ngSwitchCase="'desayuno'" style="color: red;">{{s}}</i> 
                     <!--define el estilo cuando hay coincidencia con "desayuno" coloca 
                         en color rojo el texto -->
@@ -22,17 +22,16 @@
         <!-- lo que viene abajo es un if mas practico en cuanto a sintaxis si se cumple
         se asigna el valor predeterminado en este caso es PREFERIDO (se conoce como una directiva
     esa sintaxis *ngIf) se evaluan funciones que pertenecen a typescript que se definen en el component-->
-        <span *ngIf="destino.isSelected()" > PREFERIDO
+        <span *ngIf="destino.isSelected()"> 
         <!-- esta es otra forma de desplegar lo de arriba
-        <span [style.display]="destino.isSelected() ? ' ' : 'none'" > PREFERIDO</span>
-          style.display es el estilo que se va a desplegar en html pertenece a css	-->
-          <!-- se llama destino.isSelected() ? significa que si es verdadero, ' ' elige q 
+        <span [style.display]="destino.isSelected() ? ' ' : 'none'" > PREFERIDO</span> style.display es el estilo que se va a desplegar en html pertenece a css -->
+        <!-- se llama destino.isSelected() ? significa que si es verdadero, ' ' elige q 
             valor asignar en este caso es vacio, luego los : equivale a un sino se desplegara 'none' basicamente e
         es tipo de if	-->
         <span ngNonBindable>{{PREFERIDO}}</span>
         <!-- esto hace que angular no modifique el contenido que se encuentra dentro de la
             capsula ngNonBindable -->
-    
-    </span>
+
+        </span>
+        <a [routerLink]="['/destino/id']">Ver Detalle</a>
     </div>
-</div>
