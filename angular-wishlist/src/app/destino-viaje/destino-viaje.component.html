@@ -7,7 +7,7 @@
         <h3>{{destino.nombre}}</h3>
         <p>Servicios</p>
         <ul>
-            <li *ngFor="let s of destino.servicios">
+            <li *ngFor="let s of destino.servicios;">
                 <span [ngSwitch]='s'>
                     <i *ngSwitchCase="'desayuno'" style="color: red;">{{s}}</i> 
                     <!--define el estilo cuando hay coincidencia con "desayuno" coloca 
@@ -18,7 +18,7 @@
                 </span>
             </li>
         </ul>
-        <a href="#" class="btn-card" (click)='ir()'>Ir!</a>
+        <a href="#" class="btn-card" (Click)='ir()'>Ir!</a>
         <!-- lo que viene abajo es un if mas practico en cuanto a sintaxis si se cumple
         se asigna el valor predeterminado en este caso es PREFERIDO (se conoce como una directiva
     esa sintaxis *ngIf) se evaluan funciones que pertenecen a typescript que se definen en el component-->
@@ -33,5 +33,5 @@
             capsula ngNonBindable -->
 
         </span>
-        <a [routerLink]="['/destino/id']">Ver Detalle</a>
+        <a [routerLink]="['/destino/:id']">Ver Detalle</a>
     </div>
