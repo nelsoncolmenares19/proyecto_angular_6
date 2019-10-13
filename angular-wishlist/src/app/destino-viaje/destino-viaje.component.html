@@ -8,8 +8,8 @@
         <p>Servicios</p>
         <ul>
             <li *ngFor="let s of destino.servicios;">
-                <span [ngSwitch]='s'>
-                    <i *ngSwitchCase="'desayuno'" style="color: red;">{{s}}</i> 
+                <span class="container" [ngSwitch]="s">
+                    <i *ngSwitchCase="'desayuno'" style="color: red;">{{s}} *</i> 
                     <!--define el estilo cuando hay coincidencia con "desayuno" coloca 
                         en color rojo el texto -->
                     <i *ngSwitchDefault>{{s}}</i>
@@ -18,17 +18,32 @@
                 </span>
             </li>
         </ul>
-        <a href="#" class="btn-card" (Click)='ir()'>Ir!</a>
+
+        <div>
+            <a href="#" (click)="voteUp()" >
+                <i class="material-icons md-18">thumb_up</i>
+            </a>
+            
+            <a href="#" (click)="voteDown()" >
+                <i class="material-icons md-18">thumb_down</i>
+            </a>
+            
+            {{destino.votes}}
+        </div>
+
+
+
+        <a href="#" class="btn-card" (click)='ir()'>IR!</a>
         <!-- lo que viene abajo es un if mas practico en cuanto a sintaxis si se cumple
         se asigna el valor predeterminado en este caso es PREFERIDO (se conoce como una directiva
     esa sintaxis *ngIf) se evaluan funciones que pertenecen a typescript que se definen en el component-->
-        <span *ngIf="destino.isSelected()"> 
+        <span *ngIf = "destino.isSelected()"> 
         <!-- esta es otra forma de desplegar lo de arriba
         <span [style.display]="destino.isSelected() ? ' ' : 'none'" > PREFERIDO</span> style.display es el estilo que se va a desplegar en html pertenece a css -->
         <!-- se llama destino.isSelected() ? significa que si es verdadero, ' ' elige q 
             valor asignar en este caso es vacio, luego los : equivale a un sino se desplegara 'none' basicamente e
         es tipo de if	-->
-        <span ngNonBindable>{{PREFERIDO}}</span>
+        <span ngNonBindable>{{ PREFERIDO! }}</span>
         <!-- esto hace que angular no modifique el contenido que se encuentra dentro de la
             capsula ngNonBindable -->
 

@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-//import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/store';
-
+import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { DestinoViajeComponent } from './destino-viaje/destino-viaje.component';
@@ -11,12 +12,34 @@ import { ListaDestinosComponent } from './lista-destinos/lista-destinos.componen
 import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
 import { DestinosApiClient } from './models/destinos-api-client.model';
 import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-viaje.component';
+import {
+  DestinosViajesState,
+  intializeDestinosViajesState,
+  reducerDestinosViajes,
+  DestinosViajesEffects
+  // InitMyDataAction
+} from './models/destinos-viajes-state.model';
+// import {ActionReducerMap} from '@ngrx/store';
 
-const routes:Routes = [
-  {path:'', redirectTo:'home', pathMatch:'full'},
-  {path:'home', component: ListaDestinosComponent},
-  {path:'destino/:id', component: DestinoDetalleComponent}
+const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: ListaDestinosComponent},
+  {path: 'destino/:id', component: DestinoDetalleComponent}
 ];
+
+// redux init
+export interface AppState {
+  destinos: DestinosViajesState;
+}
+
+const reducers: ActionReducerMap<AppState> = {
+  destinos: reducerDestinosViajes
+};
+
+const reducersInitialState = {
+    destinos: intializeDestinosViajesState()
+};
+// fin redux init
 
 @NgModule({
   declarations: [
@@ -30,14 +53,17 @@ const routes:Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes) //con esto se activa las rutas de ruteo dentro del decorador
+    RouterModule.forRoot(routes), // con esto se activa las rutas de ruteo dentro del decorador
+    NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
+    EffectsModule.forRoot([DestinosViajesEffects]),
+    StoreDevtoolsModule.instrument()
   ],
-  //providers: [],
+  // providers: [],
   providers: [
     DestinosApiClient
   ],
   bootstrap: [AppComponent],
-  
+
 })
 
 

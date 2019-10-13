@@ -8,7 +8,7 @@
                     <h3 class="mb-0">Whishlist</h3>
                 </div>
                 <div class="card-body">
-                    <app-form-destino-viaje (OnItemAdded)="agregado($event)"></app-form-destino-viaje>
+                    <app-form-destino-viaje (onItemAdded)="agregado($event)"></app-form-destino-viaje>
 
                 </div>
             </div>
@@ -18,6 +18,16 @@
     <div class="row row-flex">
         <!-- index es un argumento que dentro del *ngFor reemplaza el valor de i
         con la iteracion del for	-->
-        <app-destino-viaje *ngFor="let d of destinosApiClient.getAll(); let i= index" [destino]="d" [idx]="i+1" (OnClicked)="elegido (d)"></app-destino-viaje>
+        <app-destino-viaje *ngFor="let d of all; let i= index" [destino]="d" [idx]="i+1" (OnClicked)="elegido(d)"></app-destino-viaje>
+    </div>
+
+    <hr class="mb-5">
+    <div class="row row-flex">
+        <!-- index es un argumento que dentro del *ngFor reemplaza el valor de i
+        con la iteracion del for	-->
+        <h5>Actividad</h5>
+        <ul>
+        <li *ngFor = "let u of updates;"> {{u}}!</li>
+        </ul>
     </div>
 </div>
