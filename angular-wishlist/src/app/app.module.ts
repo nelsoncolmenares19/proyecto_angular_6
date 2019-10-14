@@ -19,6 +19,8 @@ import {
   DestinosViajesEffects
   // InitMyDataAction
 } from './models/destinos-viajes-state.model';
+import { LoginComponent } from './components/login/login/login.component';
+import { ProtectedComponent } from './components/protected/protected/protected.component';
 // import {ActionReducerMap} from '@ngrx/store';
 
 const routes: Routes = [
@@ -47,7 +49,9 @@ const reducersInitialState = {
     DestinoViajeComponent,
     ListaDestinosComponent,
     DestinoDetalleComponent,
-    FormDestinoViajeComponent
+    FormDestinoViajeComponent,
+    LoginComponent,
+    ProtectedComponent
   ],
   imports: [
     BrowserModule,
