@@ -27,6 +27,7 @@ import { VuelosComponent } from './components/vuelos/vuelos/vuelos.component';
 import { VuelosMainComponent } from './components/vuelos/vuelos-main/vuelos-main.component';
 import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info/vuelos-mas-info.component';
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelos-detalle.component';
+import { ReservasModule } from './reservas/reservas.module';
 // import {ActionReducerMap} from '@ngrx/store';
 
 // init routing
@@ -90,7 +91,8 @@ const reducersInitialState = {
     RouterModule.forRoot(routes), // con esto se activa las rutas de ruteo dentro del decorador
     NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
     EffectsModule.forRoot([DestinosViajesEffects]),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    ReservasModule
   ],
   // providers: [],
   providers: [
