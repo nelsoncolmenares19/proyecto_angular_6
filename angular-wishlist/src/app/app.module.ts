@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/store';
@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { DestinoViajeComponent } from './components/destino-viaje/destino-viaje.component';
 import { ListaDestinosComponent } from './components/lista-destinos/lista-destinos.component';
 import { DestinoDetalleComponent } from './components/destino-detalle/destino-detalle.component';
-import { DestinosApiClient } from './models/destinos-api-client.model';
+// import { DestinosApiClient } from './models/destinos-api-client.model';
 import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
 import {
   DestinosViajesState,
@@ -29,6 +29,19 @@ import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info/vuel
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelos-detalle.component';
 import { ReservasModule } from './reservas/reservas.module';
 // import {ActionReducerMap} from '@ngrx/store';
+
+// app config
+export interface AppConfig {
+  // tslint:disable-next-line: ban-types
+  apiEndpoint: String;
+}
+const APP_CONFIG_VALUE: AppConfig = {
+  apiEndpoint: 'http://localhost:3000'
+};
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+// fin app config
+
+
 
 // init routing
 export const childrenRoutesVuelos: Routes = [
@@ -55,6 +68,7 @@ const routes: Routes = [
     children: childrenRoutesVuelos
   }
 ];
+
 
 // redux init
 export interface AppState {
@@ -96,7 +110,8 @@ const reducersInitialState = {
   ],
   // providers: [],
   providers: [
-    DestinosApiClient, AuthService, UsuarioLogueadoGuard
+    AuthService, UsuarioLogueadoGuard,
+    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }
   ],
   bootstrap: [AppComponent],
 
