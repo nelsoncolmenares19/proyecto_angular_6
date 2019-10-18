@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule, InjectionToken, APP_INITIALIZER, Injectable } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/store';
@@ -16,7 +16,8 @@ import {
   DestinosViajesState,
   intializeDestinosViajesState,
   reducerDestinosViajes,
-  DestinosViajesEffects
+  DestinosViajesEffects,
+  InitMyDataAction
   // InitMyDataAction
 } from './models/destinos-viajes-state.model';
 import { LoginComponent } from './components/login/login/login.component';
@@ -28,6 +29,7 @@ import { VuelosMainComponent } from './components/vuelos/vuelos-main/vuelos-main
 import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info/vuelos-mas-info.component';
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelos-detalle.component';
 import { ReservasModule } from './reservas/reservas.module';
+import { HttpClientModule, HttpHeaders, HttpRequest, HttpClient } from '@angular/common/http';
 // import {ActionReducerMap} from '@ngrx/store';
 
 // app config
@@ -68,6 +70,25 @@ const routes: Routes = [
     children: childrenRoutesVuelos
   }
 ];
+// fin routing
+
+// app init
+export function init_app(appLoadService: AppLoadService): () => Promise<any>  {
+  return () => appLoadService.intializeDestinosViajesState();
+}
+
+@Injectable()
+class AppLoadService {
+  constructor(private store: Store<AppState>, private http: HttpClient) { }
+  async intializeDestinosViajesState(): Promise<any> {
+    const headers: HttpHeaders = new HttpHeaders({'X-API-TOKEN': 'token-seguridad'});
+    const req = new HttpRequest('GET', APP_CONFIG_VALUE.apiEndpoint + '/my', { headers: headers });
+    const response: any = await this.http.request(req).toPromise();
+    this.store.dispatch(new InitMyDataAction(response.body));
+  }
+}
+
+// fin app init
 
 
 // redux init
@@ -106,12 +127,15 @@ const reducersInitialState = {
     NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
     EffectsModule.forRoot([DestinosViajesEffects]),
     StoreDevtoolsModule.instrument(),
-    ReservasModule
+    ReservasModule,
+    HttpClientModule
   ],
   // providers: [],
   providers: [
     AuthService, UsuarioLogueadoGuard,
-    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }
+    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE },
+    AppLoadService,
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }
   ],
   bootstrap: [AppComponent],
 
