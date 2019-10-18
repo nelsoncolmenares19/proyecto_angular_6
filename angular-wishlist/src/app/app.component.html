@@ -11,6 +11,14 @@
 <div class="container content">
 
     <div class="page-header">
+        <div style="float: right;">
+            <select (change)="translate.use($event.target.value)">
+                      <option value="es">Español</option>
+                      <option value="fr">France</option>
+                      <option value="en">English</option>
+                    </select>
+        </div>
+
         <div class="Container">
             <h1> Ruteo Simple</h1>
             <div class="navLinks">
@@ -22,7 +30,7 @@
 
     <div class="row">
         <h1>
-            {{ title }}
+            {{ title }} <b [innerHTML]="'HOLA' | translate"></b>
         </h1>
     </div>
     <router-outlet></router-outlet>
@@ -31,8 +39,7 @@
     <input name='titulo' type='text' #titulo>
     <input name='titulo' type='submit' (click)='agregar(titulo)'> -->
 </div>
-<hr class="mb-5">
-Fecha: {{time | async}}
+<hr class="mb-5"> Fecha: {{time | async}}
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
