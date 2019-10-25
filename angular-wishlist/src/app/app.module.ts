@@ -37,6 +37,8 @@ import { HttpClientModule, HttpHeaders, HttpRequest, HttpClient } from '@angular
 import { DestinoViaje } from './models/destino-viaje.model';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+import { EspiameDirective } from './espiame.directive';
+import { TrackearClickDirective } from './trackear-click.directive';
 // import {ActionReducerMap} from '@ngrx/store';
 
 // app config
@@ -191,7 +193,9 @@ function HttpLoaderFactory(http: HttpClient) {
     VuelosComponent,
     VuelosMainComponent,
     VuelosMasInfoComponent,
-    VuelosDetalleComponent
+    VuelosDetalleComponent,
+    EspiameDirective,
+    TrackearClickDirective
   ],
   imports: [
     BrowserModule,

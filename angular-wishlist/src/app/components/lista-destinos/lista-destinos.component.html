@@ -18,7 +18,7 @@
     <div class="row row-flex">
         <!-- index es un argumento que dentro del *ngFor reemplaza el valor de i
         con la iteracion del for	-->
-        <app-destino-viaje *ngFor="let d of all; let i= index" [destino]="d" [idx]="i+1" (OnClicked)="elegido(d)"></app-destino-viaje>
+        <app-destino-viaje *ngFor="let d of all; let i= index" [destino]="d" [idx]="i+1" (OnClicked)="elegido(d)" appEspiame></app-destino-viaje>
     </div>
 
     <hr class="mb-5">
